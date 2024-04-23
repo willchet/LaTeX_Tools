@@ -1,0 +1,1 @@
+This repo contains the macros and completion files I use for my LaTeX files. If you have any suggestions or see mistakes, feel free to make a pull request or add an issue to this repo. Otherwise, feel free to reach out if you have any issues.
