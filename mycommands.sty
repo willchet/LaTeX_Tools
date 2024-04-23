@@ -1,0 +1,359 @@
+\ProvidesPackage{mycommands}
+
+%%%%%%%%%%%%
+% Packages %
+%%%%%%%%%%%%
+\RequirePackage[english]{babel}
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{amsmath, amsthm, amssymb}
+\RequirePackage{enumerate}
+\RequirePackage{mdframed}
+\RequirePackage{xparse}
+\RequirePackage{graphicx}
+\RequirePackage{longtable, array}
+\RequirePackage{xfrac}
+\RequirePackage{nicematrix}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta}
+\RequirePackage{pgfplots}
+\RequirePackage[linguistics]{forest}
+\usetikzlibrary{backgrounds,calc,shapes.multipart,chains,arrows,matrix,rulercompass}
+\RequirePackage{ulem}
+\RequirePackage{booktabs}
+\RequirePackage{pgfpages}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{wrapfig}
+\RequirePackage[ruled,linesnumbered]{algorithm2e}
+\RequirePackage{algpseudocode}
+\RequirePackage{multicol}
+\RequirePackage{multirow}
+\RequirePackage{float}
+\RequirePackage{minted}
+\RequirePackage{xcolor}
+\RequirePackage{appendix}
+\RequirePackage{secdot}
+\RequirePackage{scrextend}
+\RequirePackage{enumitem}
+\RequirePackage{mathtools}
+\RequirePackage{listings}
+\RequirePackage{pdfpages}
+\RequirePackage{minted}
+\RequirePackage{kvoptions}
+\RequirePackage{ytableau}
+\RequirePackage{titlesec}
+\RequirePackage{tabularray}
+\RequirePackage{pgfplots}
+\RequirePackage[only,llparenthesis,rrparenthesis]{stmaryrd}
+\RequirePackage{tikz-cd}
+\RequirePackage{makecell}
+\RequirePackage{colortbl}
+\RequirePackage{hyperref}
+\RequirePackage{mathrsfs}
+
+
+%%%%%%%%%%%
+% Options %
+%%%%%%%%%%%
+\newcommand{\thmnumbering}{subsection}
+\DeclareStringOption[subsection]{thmnumbering}
+\DeclareStringOption{title}
+\DeclareBoolOption{noheader}
+\ProcessKeyvalOptions*
+
+\forestset{
+  nice nodes/.style={
+    for tree={
+      inner sep=0pt,
+      fit=band,
+    },
+  },
+  default preamble=nice nodes,
+}
+
+%%%%%%%%%%
+% Header %
+%%%%%%%%%%
+\title{\mycommands@title}
+\ifmycommands@noheader
+\else
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{\hyperlink{page.1}{\qquad\qquad\qquad\qquad\qquad$\uparrow$}}
+\lhead{\mycommands@title}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%
+% Theorem Styles %
+%%%%%%%%%%%%%%%%%%
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[\mycommands@thmnumbering]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{concept}[theorem]{Concept}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtheorem{innerproblem}{Problem}
+\newenvironment{problem}[1]
+  {\hrule\renewcommand\theinnerproblem{#1}\innerproblem}
+  {\endinnerproblem}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% General Settings %
+%%%%%%%%%%%%%%%%%%%%
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\graphicspath{{./Images/}}
+\renewcommand\vec{\mathbf}
+\setlist[enumerate,1]{label=(\alph*),ref=\alph*}
+\hypersetup{hidelinks}
+\newcommand\sectionbreak{\ifnum\value{section}>1\clearpage\fi}
+\pgfplotsset{compat=1.18}
+
+%%%%%%%%%%%
+% Symbols %
+%%%%%%%%%%%
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\W}{\mathbb{W}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\LL}{\mathbb{L}}
+
+\newcommand\la\langle
+\newcommand\ra\rangle
+
+\DeclareMathOperator{\Card}{Card}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Range}{Range}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator*{\Int}{Int}
+\DeclareMathOperator*{\Ext}{Ext}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\ARE}{ARE}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\cone}{cone}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\Inte}{Int}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\bd}{bd}
+\DeclareMathOperator{\extr}{ext}
+\DeclareMathOperator{\rank}{rank}
+
+
+\DeclareMathOperator{\lead}{lead}
+\DeclareMathOperator{\cd}{cd}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\wt}{wt}
+\DeclareMathOperator{\RS}{RS}
+\DeclareMathOperator{\RM}{RM}
+
+
+
+\newcommand{\ogf}{\overset{\text{ogf}}\longleftrightarrow}
+\newcommand{\egf}{\overset{\text{egf}}\longleftrightarrow}
+
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{
+      <5> <6> <7> <8> <9> <10> gen * mathb
+      <10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12
+      }{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+\DeclareMathSymbol{\drsh}{2}{mathb}{235}
+\NewDocumentCommand{\subarrow}{}{\raisebox{0.2em}{$\drsh$}}
+
+\makeatletter
+\DeclareFontFamily{U}  {MnSymbolF}{}
+\DeclareSymbolFont{symbolsMN}{U}{MnSymbolF}{m}{n}
+\SetSymbolFont{symbolsMN}{bold}{U}{MnSymbolF}{b}{n}
+\DeclareFontShape{U}{MnSymbolF}{m}{n}{
+    <-6>  MnSymbolF5
+   <6-7>  MnSymbolF6
+   <7-8>  MnSymbolF7
+   <8-9>  MnSymbolF8
+   <9-10> MnSymbolF9
+  <10-12> MnSymbolF10
+  <12->   MnSymbolF12}{}
+\DeclareFontShape{U}{MnSymbolF}{b}{n}{
+    <-6>  MnSymbolF-Bold5
+   <6-7>  MnSymbolF-Bold6
+   <7-8>  MnSymbolF-Bold7
+   <8-9>  MnSymbolF-Bold8
+   <9-10> MnSymbolF-Bold9
+  <10-12> MnSymbolF-Bold10
+  <12->   MnSymbolF-Bold12}{}
+\DeclareMathSymbol{\tbigtimes}{\mathop}{symbolsMN}{2}
+\newcommand*{\bigtimes}{%
+  \DOTSB
+  \tbigtimes
+  \slimits@
+}
+\makeatother
+
+\newcommand{\sqop}{\ensuremath{\mathbin{\raisebox{0.1ex}{\scalebox{0.75}{\ensuremath{\square}}}}}}
+\newcommand{\triop}{\ensuremath{\mathbin{\raisebox{0.1ex}{\scalebox{0.75}{\ensuremath{\triangle}}}}}}
+
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+
+\def\multbinom#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+\def\setbinom#1#2{\ensuremath{\left\{\genfrac{}{}{0pt}{}{#1}{#2}\right\}}}
+\def\sqbinom#1#2{\ensuremath{\left[\genfrac{}{}{0pt}{}{#1}{#2}\right]}}
+\def\flbinom#1#2{\ensuremath{\left\lfloor\genfrac{}{}{0pt}{}{#1}{#2}\right\rfloor}}
+
+
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\notindep}{\not\!\perp\!\!\!\perp}
+
+\newcommand{\inj}{\rightarrowtail}
+\newcommand{\sur}{\twoheadrightarrow}
+\newcommand{\bij}{\mathrel{\mathrlap{\rightarrowtail}}\mathrel{\mkern2mu\twoheadrightarrow}}
+
+\newcommand{\lid}{\llparenthesis}
+\newcommand{\rid}{\rrparenthesis}
+
+\makeatletter
+\def\longtilde#1{\mathop{\vbox{\m@th\ialign{##\crcr\noalign{\kern3\p@}%
+      \sortoftildefill\crcr\noalign{\kern3\p@\nointerlineskip}%
+      $\hfil\displaystyle{#1}\hfil$\crcr}}}\limits}
+
+\def\sortoftildefill{$\m@th \setbox\z@\hbox{$\braceld$}%
+  \braceld\leaders\vrule \@height\ht\z@ \@depth\z@\hfill\braceru$}
+
+\makeatother
+
+\newenvironment{smallarray}[1]
+ {\null\,\vcenter\bgroup\scriptsize
+  \renewcommand{\arraystretch}{0.7}%
+  \arraycolsep=.13885em
+  \hbox\bgroup$\array{@{}#1@{}}}
+ {\endarray$\egroup\egroup\,\null}
+ 
+ \newcommand{\ro}[1]{%
+  \xrightarrow{\mathmakebox[4em]{#1}}%
+}
+
+%%%%%%%%%%%%%%%%
+% Environments %
+%%%%%%%%%%%%%%%%
+\newmdenv[topline=false,bottomline=false,skipabove=\topsep,skipbelow=\topsep,linewidth=1pt,linecolor=black]{siderules}
+\newmdenv[skipabove=\topsep,skipbelow=\topsep,backgroundcolor=gray!20, linewidth=0pt]{hl}
+\newenvironment{arrows}{\begin{itemize}[label={\raisebox{0.2em}{$\drsh$}}]}{\end{itemize}}
+
+\NiceMatrixOptions{cell-space-top-limit = 3pt,cell-space-bottom-limit = 3pt}
+\newenvironment{steps}{\begin{equation*}\begin{NiceArray}{>{\displaystyle}l>{\displaystyle}l>{\displaystyle}l|>{\displaystyle}l}}{\end{NiceArray}\end{equation*}}
+\newenvironment{steps*}{\begin{equation*}\begin{NiceArray}{>{\displaystyle}l>{\displaystyle}l>{\displaystyle}l}}{\end{NiceArray}\end{equation*}}
+\NewDocumentCommand{\cit}{O{10em} G{cit needed}}{\parbox{#1}{\raggedright #2}}
+
+
+%%%%%%%%%%
+% Tables %
+%%%%%%%%%%
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%%%%%%%%
+% Code %
+%%%%%%%%
+
+\definecolor{codepurple}{HTML}{C42043}
+\definecolor{codegreen}{HTML}{008000}
+\definecolor{codegray}{HTML}{7F7F7F}
+\definecolor{backcolour}{HTML}{F2F2F2}
+\definecolor{bookColor}{cmyk}{0,0,0,0.90}
+\color{bookColor}
+
+\newminted[python]{python}{
+  linenos,
+  bgcolor=gray!20,
+  breaklines,
+  numbersep=5pt,
+  xleftmargin=20pt,
+}
+
+\newminted[sql]{sql}{
+  linenos,
+  bgcolor=gray!20,
+  breaklines,
+  numbersep=5pt,
+  xleftmargin=20pt,
+}
+
+\newminted[json]{JSON}{
+  linenos,
+  bgcolor=gray!20,
+  breaklines,
+  numbersep=5pt,
+  xleftmargin=20pt,
+}
+
+\newminted[xml]{XML}{
+  linenos,
+  bgcolor=gray!20,
+  breaklines,
+  numbersep=5pt,
+  xleftmargin=20pt,
+}
+
+\newmintinline[ilsql]{sql}{breaklines}
+\newmintinline[ilpy]{python}{breaklines, breakbefore={.}, breakafter={,=\space}}
+\newmintinline[ilmon]{text}{breaklines, breakbefore={.}, breakafter={,=\space}}
+\newmintinline[iljson]{JSON}{breaklines}
+\newmintinline[ilxml]{XML}{breaklines}
+\newmintinline[ilcbl]{cobol}{breaklines}
+
+\protected\def\CC{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{++}}}}
+
+%%%%%%%%%%%%%
+% Functions %
+%%%%%%%%%%%%%
+
+\tikzset{
+    declare function={
+        normcdf(\x,\m,\s)=1/(1 + exp(-0.07056*((\x-\m)/\s)^3 - 1.5976*(\x-\m)/\s));
+    }
+}
+
+\tikzset{ruler compass/construction in use/.style={
+    draw=black
+  }
+}
+
+\newcommand{\drawDots}[1]{
+	\raisebox{1pt}{
+  \begin{tikzpicture}[x=3mm]
+    \foreach \i in {1,...,#1} {
+      \fill (\i-1,0) circle[radius=2pt];
+    }
+    \draw (0,0) -- (#1-1,0);
+  \end{tikzpicture}}
+}
